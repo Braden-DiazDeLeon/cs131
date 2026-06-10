@@ -10,6 +10,5 @@ B9: grep '"name":"P' /data/yelp/yelp_academic_dataset_business.json
 B10: grep -ci 'pizza' /data/yelp/yelp_academic_dataset_review.json
 B11: grep -n 'service' /data/yelp/yelp_academic_dataset_review.json
 B12: grep -v 'Restaurants' /data/yelp/yelp_academic_dataset_business.json
-B12: grep -v 'Restaurants' /data/yelp/yelp_academic_dataset_business.json
 B13: The first Grep gets all the business that are in the state california. The second grep extrats the review section. The third grep extracts the numbers from the review section. The final line sorts the numbers numerically and reversed which is descending and head -3 takes the first 3.
 B14: grep '"city":"Santa Barbara"' /data/yelp/yelp_academic_dataset_business.json | grep -oE '"name":"[^"]+"' | cut -d '"' -f4 | sort
