@@ -1,0 +1,16 @@
+Q1: git add notes.md; git commit -m "ws2: add task line"
+Q2: git log --oneline -3
+Q3: git log --oneline
+Q4: git revert 0559cb5; grep WRONG notes.md
+Q5: git rm --cached bigdata.bin; echo "bigdata.bin" >> .gitignore; git add .gitignore; git commit --amend --no-edit; rm bigdata.bin; git push
+Q6: git switch -c feature-summary
+Q7: echo "Summary for the work" > summary.md; echo "this is a new branch" >> summary.md; git add summary.md; git commit -m "ws2: summary"
+Q8: git diff main..feature-summary
+Q9: git switch main; git merge feature-summary; ls summary.md
+Q10: git branch -d feature-summary
+Q11: git merge conflict-branch; conflicted file: ws2/summary.md
+Q12: git diff --name-only --diff-filter=U
+Q13: printf "# Summary\nMain branch update\nBranch-specific update\n" > summary.md; cat summary.md
+Q14: git add summary.md; git commit -m "Merge branch 'conflict-branch'"; git log --oneline
+Q15: git fetch origin; git log HEAD..origin/main --oneline
+Q16: git fetch downloads remote changes without changing your working branch, basically putting the changes into a branch or bookmark; git pull downloads those changes and  merges/rebases them into your branch.
