@@ -1,0 +1,50 @@
+
+https://gist.github.com/zachbrowne/8bc414c9f30192067831fafebd14255c#file-the-ultimate-bad-ass-bashrc-file-L244
+
+extract ()
+
+The extract() function is  for unpacking different archive formats. It is implemented with a for loop, a file test, and a case statement.
+
+The line for archive in $* loops through every argument passed to the function so the user can run extract file1.zip file2.tar.gz and process multiple archives.
+For each argument the if condition [ -f $archive ] checks if the argument is a regular file. If it is not a valid file, the function prints '$archive' is not a valid file!
+
+When the file exists, case $archive in compares the filename against different extension patterns. 
+Each pattern runs the matching extraction command. 
+The *) default case prints that it does not know how to extract the archive if none of the extensions match. 
+The esac ends the case statement, fi ends the file-checking if statement, and done ends the loop over the arguments.
+
+https://gist.github.com/zachbrowne/8bc414c9f30192067831fafebd14255c#file-the-ultimate-bad-ass-bashrc-file-L329
+
+up ()
+
+The up() function moves up a requested number of parent directories.
+
+The function starts by creating a variable d and setting limit=$1, where $1 is the first argument passed to the function. 
+The for loop for ((i=1 ; i <= limit ; i++)) runs once for each directory level requested. On each iteration, d=$d/.. appends another parent-directory component to the path.
+
+After the loop, d=$(echo $d | sed 's/^\///') removes the leading slash that was created when the first /.. was appended. 
+The if condition [ -z "$d" ] checks if d is still empty, which can happen if the user did not provide a number. 
+In that case, the function defaults to d=.., meaning go up one level.  cd $d changes into the computed parent directory.
+
+T2: My own .bashrc
+
+https://github.com/Braden-DiazDeLeon/cs131/blob/677de9f96c0983b282f39456890d04dc1e6ebcbd/ws4/.bashrc#L9
+
+alias ll='ls -alF --group-directories-first'
+
+This alias makes a more useful version of the common ls command. The -a option shows hidden files, the -l option uses long format so I can see permissions, owners, and sizes
+The -F option adds  markers. The --group-directories-first option keeps folders together at the top.
+
+https://github.com/Braden-DiazDeLeon/cs131/blob/677de9f96c0983b282f39456890d04dc1e6ebcbd/ws4/.bashrc#L14
+if [ -d "$HOME/cs131" ]; then
+
+This if checks if the cs131 repository exists before creating shortcuts that depend on it. The test [ -d "$HOME/cs131" ] is true only when $HOME/cs131 exists and is a directory.
+ If the repository is missing bash skips the block.
+
+
+https://github.com/Braden-DiazDeLeon/cs131/blob/677de9f96c0983b282f39456890d04dc1e6ebcbd/ws4/.bashrc#L21-L27
+mkcd () {
+
+This shell function creates a directory and immediately changes into it. It first checks the number of arguments with if [ "$#" -ne 1 ]; then if the user gives none or more than one args
+ it prints Usage: mkcd DIRECTORY. Otherwise, mkdir -p -- "$1" creates the requested directory including missing parent directories. The && operator runs cd -- "$1" if mkdir succeeds
+ which basically means we can't cd into a failed mkdir.
